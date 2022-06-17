@@ -8,19 +8,20 @@ public class Player : NetworkBehaviour
 {
 	public static Player LocalInstance { get; private set; }
 
-	[field: SerializeField]
-	[field: SyncVar]
-	public int Score
-	{
-		get;
+	[SyncVar]
+	public string playerName = "default";
 
-		[ServerRpc(RequireOwnership = false)]
-		private set;
-	}
+	[SyncVar]
+	public bool isReady;
+
+	//[SyncVar]
+	//public PlayerCharacter character;
 
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
+
+		SetIsReadyServerRpc(false);
 
 		if (!IsOwner) return;
 
@@ -29,13 +30,40 @@ public class Player : NetworkBehaviour
 		ViewManager.Instance.Initialize();
 	}
 
+	public override void OnStartServer()
+	{
+		base.OnStartServer();
+
+		GameManager.Instance.AddPlayer(this);
+	}
+
+	public override void OnStopServer()
+	{
+		base.OnStopServer();
+
+		GameManager.Instance.RemovePlayer(this);
+	}
+
 	private void Update()
 	{
 		if (!IsOwner) return;
+	}
 
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			Score = (Random.Range(0, 1024)); //the setter is a serverRpc, so this is valid
-		}
+	[ServerRpc(RequireOwnership = false)]
+	public void SetIsReadyServerRpc(bool value)
+	{
+		isReady = value;
+		GameManager.Instance.ReadyStateChangedServerRpc();
+	}
+
+	public void StartGame()
+	{
+		//switch to proper scene?
+		//video 1:25:44
+	}
+
+	public void StopGame()
+	{
+		//TODO
 	}
 }

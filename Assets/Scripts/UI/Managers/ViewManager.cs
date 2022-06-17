@@ -51,4 +51,17 @@ public class ViewManager : MonoBehaviour
 			}
 		}
 	}
+
+	public View GetView<TView>() where TView : View
+	{
+		foreach (var view in views)
+		{
+			if (view is TView)
+			{
+				return view;
+			}
+		}
+
+		return null;
+	}
 }
