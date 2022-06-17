@@ -12,6 +12,9 @@ public class MultiplayerView : View
     [SerializeField]
     private Button connectButton;
 
+	[SerializeField]
+	private Button messageButton;
+
 	public override void Initialize()
 	{
 		hostButton.onClick.AddListener(() =>
@@ -21,6 +24,7 @@ public class MultiplayerView : View
 		});
 
 		connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+
 
 		base.Initialize();
 	}

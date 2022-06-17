@@ -261,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &232327787
 RectTransform:
   m_ObjectHideFlags: 0
@@ -298,6 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hostButton: {fileID: 180350906}
   connectButton: {fileID: 2133367958}
+  messageButton: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +622,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1247210390}
   - component: {fileID: 1247210389}
+  - component: {fileID: 1247210392}
+  - component: {fileID: 1247210391}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -643,9 +646,9 @@ MonoBehaviour:
   _refreshDefaultPrefabs: 0
   _runInBackground: 1
   _dontDestroyOnLoad: 1
-  _persistence: 1
+  _persistence: 0
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 11400000, guid: ec64eb18c93ab344892891f33edbf82a, type: 2}
+  _spawnablePrefabs: {fileID: 11400000, guid: b815ded8769cde547a98759f3e98eb0d, type: 2}
 --- !u!4 &1247210390
 Transform:
   m_ObjectHideFlags: 0
@@ -661,6 +664,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1247210391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247210388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ce8bbb58966cb45a7140f32da5327a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startInOffline: 0
+  _offlineScene: Assets/Scenes/MainMenu.unity
+  _onlineScene: Assets/Scenes/Game1Lobby.unity
+  _replaceScenes: 0
+--- !u!114 &1247210392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247210388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 4213251473001424392, guid: 92cd69eb6f3c4a1489b8cf27722a10dc, type: 3}
+  _addToDefaultScene: 0
+  Spawns: []
 --- !u!1 &1265544495
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,8 +1028,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1459d4dc82ff2d54c8bf3c925162d601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoInitialize: 1
   views:
   - {fileID: 232327788}
+  defaultView: {fileID: 232327788}
 --- !u!4 &1711457490
 Transform:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public abstract class View : MonoBehaviour
 		IsInitialized = true;
 	}
 
-    public virtual void Show()
+    public virtual void Show(object args = null)
 	{
 		gameObject.SetActive(true);
 	}
