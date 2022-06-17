@@ -13,7 +13,7 @@ public class MultiplayerView : View
     private Button connectButton;
 
 	[SerializeField]
-	private Button messageButton;
+	private Button backButton;
 
 	public override void Initialize()
 	{
@@ -24,6 +24,8 @@ public class MultiplayerView : View
 		});
 
 		connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+
+		backButton.onClick.AddListener(() => ViewManager.Instance.Show<ShooterMainMenu>());
 
 
 		base.Initialize();
