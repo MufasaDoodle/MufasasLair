@@ -1,4 +1,5 @@
 using FishNet;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
@@ -40,9 +41,38 @@ public class GameManager : NetworkBehaviour
 	{
 		if (!canStart) return;
 
+		SceneLoadData sld = null;
+
+		if (currentMap == 0)
+		{
+			sld = new SceneLoadData("JimMap");
+		}
+		else if (currentMap == 1)
+		{
+			sld = new SceneLoadData("CherryMap");
+		}
+		else if (currentMap == 2)
+		{
+			sld = new SceneLoadData("LunarMap");
+		}
+		else if (currentMap == 3)
+		{
+			sld = new SceneLoadData("EgoMap");
+		}
+
+		if (sld == null)
+		{
+			Debug.LogError("No map could be loaded!");
+			return;
+		}
+
+		NetworkManager.SceneManager.LoadGlobalScenes(sld);
+
+		Vector3 spawnPosInitial = new Vector3(30, 1.2f, 55);
+
 		for (int i = 0; i < players.Count; i++)
 		{
-			players[i].StartGame();
+			players[i].StartGame(new Vector3(spawnPosInitial.x, spawnPosInitial.y, spawnPosInitial.z + i * 1.5f)); //TODO get proper spawn points from mapdata
 		}
 	}
 

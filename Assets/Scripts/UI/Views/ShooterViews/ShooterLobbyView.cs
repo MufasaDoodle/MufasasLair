@@ -73,7 +73,7 @@ public class ShooterLobbyView : View
 
 	private void StartGameClicked()
 	{
-		Debug.Log("Start button clicked");
+		GameManager.Instance.StartGame();
 	}
 
 	private void ReadyButtonClicked()

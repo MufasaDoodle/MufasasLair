@@ -20,6 +20,17 @@ public class OptionsView : View
         saveExitButton.onClick.AddListener(() => SaveAndExit());
         fpsSlider.onValueChanged.AddListener(FPSSliderChanged);
 
+        var maxFps = PlayerPrefs.GetInt("maxFPS");
+
+        if(maxFps == 0)
+		{
+            maxFps = 144;
+            PlayerPrefs.SetInt("maxFPS", maxFps);
+        }
+
+        fpsSlider.value = maxFps;
+        FPSSliderChanged(maxFps);
+
 		base.Initialize();
 	}
 
@@ -33,6 +44,7 @@ public class OptionsView : View
         //TODO save settings to playerprefs
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = (int)fpsSlider.value;
+        PlayerPrefs.SetInt("maxFPS", (int)fpsSlider.value);
 
         ViewManager.Instance.Show<MainMenu>();
     }

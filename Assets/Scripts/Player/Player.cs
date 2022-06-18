@@ -3,6 +3,7 @@ using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Player : NetworkBehaviour
 {
@@ -13,6 +14,9 @@ public class Player : NetworkBehaviour
 
 	[SyncVar]
 	public bool isReady;
+
+	[SyncVar]
+	public Character controlledPlayer;
 
 	//[SyncVar]
 	//public PlayerCharacter character;
@@ -63,14 +67,21 @@ public class Player : NetworkBehaviour
 		GameManager.Instance.ReadyStateChangedServerRpc();
 	}
 
-	public void StartGame()
+	public void StartGame(Vector3 spawnPos)
 	{
-		//switch to proper scene?
-		//video 1:25:44
+		GameObject characterPrefab = Addressables.LoadAssetAsync<GameObject>("ShooterCharacter").WaitForCompletion();
+
+		GameObject charInstance = Instantiate(characterPrefab, spawnPos, Quaternion.identity);
+		Spawn(charInstance, Owner);
+
+		controlledPlayer = charInstance.GetComponent<Character>();
 	}
 
 	public void StopGame()
 	{
-		//TODO
+		if(controlledPlayer != null && controlledPlayer.IsSpawned)
+		{
+			controlledPlayer.Despawn();
+		}
 	}
 }

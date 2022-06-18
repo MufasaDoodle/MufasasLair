@@ -27,6 +27,16 @@ public class MainMenu : View
 		optionsButton.onClick.AddListener(() => OpenView<OptionsView>());
 		quitButton.onClick.AddListener(() => Application.Quit());
 
+		var maxFps = PlayerPrefs.GetInt("maxFPS");
+
+		if (maxFps <= 0)
+		{
+			maxFps = 144;
+			PlayerPrefs.SetInt("maxFPS", maxFps);
+		}
+
+		Application.targetFrameRate = maxFps;
+
 		base.Initialize();
 	}
 }
