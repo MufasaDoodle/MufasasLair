@@ -1,3 +1,4 @@
+using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
@@ -27,7 +28,6 @@ public class GameManager : NetworkBehaviour
 	public override void OnStartNetwork()
 	{
 		base.OnStartNetwork();
-
 		Instance = this;
 		maps.Add(new ShooterMap(0, "Jim's Dirty Butthole", 8, "A 1:1 recreation of the place nobody wants to visit", new Color(139f / 255f, 69f / 255f, 19f / 255f)));
 		maps.Add(new ShooterMap(1, "Cherry's Hairy Bush", 8, "Basically Chewbacca wtf", Color.red));
@@ -100,6 +100,35 @@ public class GameManager : NetworkBehaviour
 
 		ShooterLobbyView view = (ShooterLobbyView)viewRaw;
 		view.SetMapDescription(map);
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void KickClient(int id)
+	{
+		var client = InstanceFinder.ClientManager.Clients[id];
+		client.Disconnect(true);
+		InstanceFinder.ClientManager.Clients.Remove(id);
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void GameSettingsChangedServerRpc(bool ffa, int timeLimit)
+	{
+		GameSettingsChangedClientRpc(ffa, timeLimit);
+	}
+
+	[ObserversRpc(BufferLast = true)]
+	public void GameSettingsChangedClientRpc(bool ffa, int timeLimit)
+	{
+		View viewRaw = ViewManager.Instance.GetView<ShooterLobbyView>();
+
+		if (viewRaw == null)
+		{
+			Debug.LogError("Could not find Lobby View");
+			return;
+		}
+
+		ShooterLobbyView view = (ShooterLobbyView)viewRaw;
+		view.NewGameSettings(ffa, timeLimit);
 	}
 }
 

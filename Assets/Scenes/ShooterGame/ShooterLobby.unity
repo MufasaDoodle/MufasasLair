@@ -207,6 +207,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (2)
@@ -450,7 +462,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -464,7 +476,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 470417775}
   toggleTransition: 1
   graphic: {fileID: 66534726}
@@ -614,7 +626,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -628,7 +640,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 148854538}
   m_TextViewport: {fileID: 927924515}
   m_TextComponent: {fileID: 1311160334}
@@ -1171,6 +1183,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (4)
@@ -1283,6 +1307,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (10)
@@ -1677,6 +1713,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (11)
@@ -1867,6 +1915,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (7)
@@ -1979,6 +2039,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (5)
@@ -2230,6 +2302,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (8)
@@ -2342,6 +2426,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (3)
@@ -2589,6 +2685,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (1)
@@ -3676,6 +3784,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (6)
@@ -4723,6 +4843,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KickClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard (9)
@@ -5441,6 +5573,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1788956043}
     m_Modifications:
+    - target: {fileID: 181389524912509532, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1906123420}
     - target: {fileID: 1718048900114917557, guid: 0886942ae5d8cbb408671a79f5d0cba5, type: 3}
       propertyPath: m_Name
       value: PlayerCard

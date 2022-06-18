@@ -1,3 +1,4 @@
+using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
@@ -16,7 +17,7 @@ public class LobbyManagerUI : NetworkBehaviour
 		playerSlots = new GameObject[12];
 		for (int i = 0; i < 12; i++)
 		{
-			playerSlots[i] = PlayerCardsPanel.transform.GetChild(i).gameObject;
+			playerSlots[i] = PlayerCardsPanel.transform.GetChild(i).gameObject;			
 		}
 	}
 
@@ -29,6 +30,16 @@ public class LobbyManagerUI : NetworkBehaviour
 			playerSlots[i].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = players[i].playerName;
 			playerSlots[i].GetComponentInChildren<Toggle>().isOn = players[i].isReady;
 			index = i;
+
+			//TODO figure out a way to enable the kicking of clients
+			/*
+			if (Player.LocalInstance.IsHost)
+			{
+				if (i == 0) continue; //don't put a kick button on the host
+				PlayerCardsPanel.transform.GetChild(i).GetChild(2).gameObject.SetActive(true);
+				PlayerCardsPanel.transform.GetChild(i).GetChild(2).GetComponent<Button>().onClick.AddListener(() => KickClient(i));
+			}
+			*/
 		}
 		index++;
 
@@ -40,5 +51,11 @@ public class LobbyManagerUI : NetworkBehaviour
 				playerSlots[i].GetComponentInChildren<Toggle>().isOn = false;
 			}
 		}
+	}
+
+	public void KickClient(int id)
+	{
+		if (!IsHost) return;
+		GameManager.Instance.KickClient(id);
 	}
 }

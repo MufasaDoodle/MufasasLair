@@ -26,6 +26,7 @@ public class Player : NetworkBehaviour
 		if (!IsOwner) return;
 
 		LocalInstance = this;
+		SetUsernameServerRpc();
 
 		ViewManager.Instance.Initialize();
 	}
@@ -47,6 +48,12 @@ public class Player : NetworkBehaviour
 	private void Update()
 	{
 		if (!IsOwner) return;
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void SetUsernameServerRpc()
+	{
+		playerName = PlayerPrefs.GetString("username");
 	}
 
 	[ServerRpc(RequireOwnership = false)]

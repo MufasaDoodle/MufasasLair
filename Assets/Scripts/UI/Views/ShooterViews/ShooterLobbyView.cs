@@ -42,7 +42,7 @@ public class ShooterLobbyView : View
 		readyButton.onClick.AddListener(() => ReadyButtonClicked());
 		mapSelect.onValueChanged.AddListener(OnMapSelectionChanged);
 		ffaToggle.onValueChanged.AddListener(OnFFAToggleChanged);
-		timeLimitInput.onValueChanged.AddListener(OnTimeLimitChanged);
+		timeLimitInput.onEndEdit.AddListener(OnTimeLimitChanged);
 
 		List<string> mapOptions = new List<string>();
 		foreach (var map in GameManager.Instance.maps)
@@ -57,6 +57,8 @@ public class ShooterLobbyView : View
 		if (InstanceFinder.IsServer)
 		{
 			mapSelect.interactable = true;
+			ffaToggle.interactable = true;
+			timeLimitInput.interactable = true;
 		}
 
 		base.Initialize();
@@ -98,12 +100,17 @@ public class ShooterLobbyView : View
 
 	private void OnFFAToggleChanged(bool value)
 	{
-		Debug.Log("FFA: " + value);
-		//call correct method in game settings
+		GameManager.Instance.GameSettingsChangedServerRpc(value, int.Parse(timeLimitInput.text));
 	}
 
 	private void OnTimeLimitChanged(string value)
 	{
-		//call correct method in game settings
+		GameManager.Instance.GameSettingsChangedServerRpc(ffaToggle.isOn, int.Parse(value));
+	}
+
+	public void NewGameSettings(bool ffa, int timeLimit)
+	{
+		ffaToggle.isOn = ffa;
+		timeLimitInput.text = timeLimit.ToString();
 	}
 }
