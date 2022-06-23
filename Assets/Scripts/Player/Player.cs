@@ -73,7 +73,6 @@ public class Player : NetworkBehaviour
 
 	public void StartGame(Vector3 spawnPos)
 	{
-		Debug.Log("Called");
 		ViewManager.Instance.Show<RespawnView>();
 	}
 

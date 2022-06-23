@@ -19,6 +19,8 @@ public class CharacterInput : NetworkBehaviour
 
 	public bool fire;
 
+	public bool reload;
+
 	public override void OnStartNetwork()
 	{
 		base.OnStartNetwork();
@@ -39,5 +41,7 @@ public class CharacterInput : NetworkBehaviour
 		jump = Input.GetButton("Jump");
 
 		fire = Input.GetButton("Fire1");
+
+		reload = Input.GetKeyDown(KeyCode.R);
 	}
 }

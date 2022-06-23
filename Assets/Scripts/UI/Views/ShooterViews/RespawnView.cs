@@ -12,7 +12,6 @@ public class RespawnView : View
 	{
 		respawnButton.onClick.AddListener(() =>
 		{
-			Debug.Log("Spawning character");
 			Player.LocalInstance.SpawnCharacterServerRpc();
 		});
 

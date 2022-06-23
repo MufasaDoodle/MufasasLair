@@ -26,4 +26,15 @@ public class Character : NetworkBehaviour
 			Despawn();
 		}
 	}
+
+	public void SpendAmmo()
+	{
+		ammo -= 1;
+		if (ammo <0 ) ammo = 0;
+	}
+
+	public void Reload()
+	{
+		ammo = 5;
+	}
 }

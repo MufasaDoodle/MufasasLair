@@ -20,6 +20,8 @@ public class CharacterWeapon : NetworkBehaviour
 	[SerializeField]
 	private Transform firePoint;
 
+	private bool isReloading = false;
+
 	public override void OnStartNetwork()
 	{
 		base.OnStartNetwork();
@@ -32,12 +34,10 @@ public class CharacterWeapon : NetworkBehaviour
 	{
         if (!IsOwner) return;
 
-		Debug.DrawRay(firePoint.position, firePoint.forward * 10);
-
 		if (shootCooldown <= 0.0f)
 		{
 			if (input.fire)
-			{
+			{				
 				FireServerRpc(firePoint.position, firePoint.forward);
 
 				shootCooldown = shotDelay;
@@ -47,11 +47,28 @@ public class CharacterWeapon : NetworkBehaviour
 		{
 			shootCooldown -= Time.deltaTime;
 		}
+
+		if (input.reload)
+		{
+			StartCoroutine(WaitForReload());
+		}
+	}
+
+	[ServerRpc]
+	private void ReloadServerRpc()
+	{
+		character.Reload();
 	}
 
 	[ServerRpc]
     private void FireServerRpc(Vector3 firePointPos, Vector3 firePointDirection)
 	{
+		if (character.ammo <= 0 || isReloading)
+		{
+			return;
+		}
+
+		character.SpendAmmo();
 		if(Physics.Raycast(firePointPos, firePointDirection, out RaycastHit hit))
 		{
 			var charHit = hit.transform.GetComponent<Character>();
@@ -60,5 +77,13 @@ public class CharacterWeapon : NetworkBehaviour
 
 			charHit.ReceiveDamage(damage);
 		}
+	}
+
+	public IEnumerator WaitForReload()
+	{
+		isReloading = true;
+		yield return new WaitForSeconds(1f);
+		isReloading = false;
+		ReloadServerRpc();
 	}
 }
