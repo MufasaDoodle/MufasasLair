@@ -11,4 +11,19 @@ public class Character : NetworkBehaviour
 
 	[SyncVar]
 	public float health;
+
+	[SyncVar]
+	public int ammo;
+
+	public void ReceiveDamage(float amount)
+	{
+		if (!IsSpawned) return;
+
+		if((health -= amount) <= 0.0f)
+		{
+			controllingPlayer.TargetCharacterKilled(Owner);
+
+			Despawn();
+		}
+	}
 }

@@ -1897,6 +1897,10 @@ PrefabInstance:
       propertyPath: _offlineScene
       value: Assets/Scenes/ShooterGame/ShooterMenu.unity
       objectReference: {fileID: 0}
+    - target: {fileID: 6815794610161626735, guid: 7a240790448c2084d83607e92ede6208, type: 3}
+      propertyPath: _replaceScenes
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a240790448c2084d83607e92ede6208, type: 3}

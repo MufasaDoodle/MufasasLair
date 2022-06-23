@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
@@ -33,6 +34,9 @@ public class Player : NetworkBehaviour
 		SetUsernameServerRpc();
 
 		ViewManager.Instance.Initialize();
+
+		if (GameManager.Instance.isGameStarted)
+			StartGame(new Vector3(0, 0, 0));
 	}
 
 	public override void OnStartServer()
@@ -69,19 +73,50 @@ public class Player : NetworkBehaviour
 
 	public void StartGame(Vector3 spawnPos)
 	{
+		Debug.Log("Called");
+		ViewManager.Instance.Show<RespawnView>();
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void SpawnCharacterServerRpc()
+	{
+		CharacterSpawn(new Vector3(30, 1.2f, 55));
+	}
+
+	public void CharacterSpawn(Vector3 spawnPos)
+	{
 		GameObject characterPrefab = Addressables.LoadAssetAsync<GameObject>("ShooterCharacter").WaitForCompletion();
 
 		GameObject charInstance = Instantiate(characterPrefab, spawnPos, Quaternion.identity);
 		Spawn(charInstance, Owner);
 
 		controlledPlayer = charInstance.GetComponent<Character>();
+
+		controlledPlayer.controllingPlayer = this;
+
+		if (Camera.main != null)
+			Destroy(Camera.main.gameObject);
+
+		TargetCharacterSpawned(Owner);
 	}
 
 	public void StopGame()
 	{
-		if(controlledPlayer != null && controlledPlayer.IsSpawned)
+		if (controlledPlayer != null && controlledPlayer.IsSpawned)
 		{
 			controlledPlayer.Despawn();
 		}
+	}
+
+	[TargetRpc]
+	private void TargetCharacterSpawned(NetworkConnection networkConnection)
+	{
+		ViewManager.Instance.Show<ShooterView>();
+	}
+
+	[TargetRpc]
+	public void TargetCharacterKilled(NetworkConnection networkConnection)
+	{
+		ViewManager.Instance.Show<RespawnView>();
 	}
 }

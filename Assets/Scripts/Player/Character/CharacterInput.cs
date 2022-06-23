@@ -17,6 +17,8 @@ public class CharacterInput : NetworkBehaviour
 	
 	public bool jump;
 
+	public bool fire;
+
 	public override void OnStartNetwork()
 	{
 		base.OnStartNetwork();
@@ -35,5 +37,7 @@ public class CharacterInput : NetworkBehaviour
 		mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
 		jump = Input.GetButton("Jump");
+
+		fire = Input.GetButton("Fire1");
 	}
 }

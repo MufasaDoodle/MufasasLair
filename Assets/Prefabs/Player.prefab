@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4213251473001424502}
   - component: {fileID: 4213251473001424393}
   - component: {fileID: 4213251473001424392}
+  - component: {fileID: 5366821875696784626}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -48,7 +49,9 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4213251473001424392}
   _networkObjectCache: {fileID: 4213251473001424392}
-  <Score>k__BackingField: 22
+  playerName: default
+  isReady: 0
+  controlledPlayer: {fileID: 0}
 --- !u!114 &4213251473001424392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,8 +73,20 @@ MonoBehaviour:
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  _prefabId: 0
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
   - {fileID: 4213251473001424392}
+--- !u!114 &5366821875696784626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4213251473001424395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef4e910e9ab05c4b9e7e324fae85953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyManagerUI : NetworkBehaviour
+public class LobbyManagerUI : MonoBehaviour
 {
 	public GameObject PlayerCardsPanel;
 
@@ -21,7 +21,6 @@ public class LobbyManagerUI : NetworkBehaviour
 		}
 	}
 
-	[ObserversRpc]
 	public void RefreshClientRpc(Player[] players)
 	{
 		int index = 0;
@@ -53,9 +52,11 @@ public class LobbyManagerUI : NetworkBehaviour
 		}
 	}
 
+	/*
 	public void KickClient(int id)
 	{
 		if (!IsHost) return;
 		GameManager.Instance.KickClient(id);
 	}
+	*/
 }

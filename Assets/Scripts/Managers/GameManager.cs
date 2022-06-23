@@ -26,10 +26,14 @@ public class GameManager : NetworkBehaviour
 	[SyncObject]
 	public readonly SyncList<ShooterMap> maps = new();
 
+	[SyncVar]
+	public bool isGameStarted;
+
 	public override void OnStartNetwork()
 	{
 		base.OnStartNetwork();
 		Instance = this;
+		SetGameStartBoolServerRpc(false);
 		maps.Add(new ShooterMap(0, "Jim's Dirty Butthole", 8, "A 1:1 recreation of the place nobody wants to visit", new Color(139f / 255f, 69f / 255f, 19f / 255f)));
 		maps.Add(new ShooterMap(1, "Cherry's Hairy Bush", 8, "Basically Chewbacca wtf", Color.red));
 		maps.Add(new ShooterMap(2, "Lunar's Smelly Armpits", 8, "I can smell them across the globe good god", Color.cyan));
@@ -67,6 +71,8 @@ public class GameManager : NetworkBehaviour
 		}
 
 		NetworkManager.SceneManager.LoadGlobalScenes(sld);
+		SetGameStartBoolServerRpc(true);
+		NetworkManager.SceneManager.UnloadGlobalScenes(new SceneUnloadData("ShooterLobby"));
 
 		Vector3 spawnPosInitial = new Vector3(30, 1.2f, 55);
 
@@ -74,6 +80,12 @@ public class GameManager : NetworkBehaviour
 		{
 			players[i].StartGame(new Vector3(spawnPosInitial.x, spawnPosInitial.y, spawnPosInitial.z + i * 1.5f)); //TODO get proper spawn points from mapdata
 		}
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	private void SetGameStartBoolServerRpc(bool value)
+	{
+		isGameStarted = value;
 	}
 
 	[Server]
@@ -89,21 +101,27 @@ public class GameManager : NetworkBehaviour
 	public void AddPlayer(Player player)
 	{
 		players.Add(player);
-		lobbyManager.RefreshClientRpc(players.ToArray());
+		RefreshClientRpc(players.ToArray());
 	}
 
 	[ServerRpc(RequireOwnership = false)]
 	public void RemovePlayer(Player player)
 	{
 		players.Remove(player);
-		lobbyManager.RefreshClientRpc(players.ToArray());
+		RefreshClientRpc(players.ToArray());
 	}
 
 	[ServerRpc(RequireOwnership = false)]
 	public void ReadyStateChangedServerRpc()
 	{
-		lobbyManager.RefreshClientRpc(players.ToArray());
+		RefreshClientRpc(players.ToArray());
 		canStart = players.All(player => player.isReady);
+	}
+
+	[ObserversRpc]
+	public void RefreshClientRpc(Player[] players)
+	{
+		lobbyManager.RefreshClientRpc(players);
 	}
 
 	private void OnSelectedMapChange(int prev, int next, bool asServer)
