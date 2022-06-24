@@ -2383,6 +2383,7 @@ MonoBehaviour:
   _scenePathHash: 1216801797
   _sceneId: 5226123925680038489
   _sceneNetworkObjects:
+  - {fileID: 0}
   - {fileID: 959464614}
   - {fileID: 1906123422}
 --- !u!114 &959464615
@@ -2403,6 +2404,8 @@ MonoBehaviour:
   canStart: 0
   lobbyManager: {fileID: 1906123420}
   currentMap: 0
+  isGameStarted: 0
+  gameSettings: {fileID: 0}
 --- !u!1001 &960010516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2686,6 +2689,7 @@ MonoBehaviour:
   - {fileID: 828489232}
   - {fileID: 817048536}
   defaultView: {fileID: 1739838572}
+  otherViews: []
 --- !u!4 &1196542828
 Transform:
   m_ObjectHideFlags: 0
@@ -5193,6 +5197,7 @@ MonoBehaviour:
   _scenePathHash: 1216801797
   _sceneId: 5226123925828739960
   _sceneNetworkObjects:
+  - {fileID: 0}
   - {fileID: 959464614}
   - {fileID: 1906123422}
 --- !u!1 &1922948647

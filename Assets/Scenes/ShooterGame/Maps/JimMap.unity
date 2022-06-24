@@ -8774,7 +8774,7 @@ GameObject:
   - component: {fileID: 1658477802}
   - component: {fileID: 1658477803}
   m_Layer: 0
-  m_Name: MapSettings
+  m_Name: MapSpawns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8807,8 +8807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e476eea8d5e0c42971f00a4906ee3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 0
-  isFFA: 0
   spawnsParent: {fileID: 672347050}
 --- !u!1 &1668844242
 GameObject:

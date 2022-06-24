@@ -29,15 +29,21 @@ public class GameManager : NetworkBehaviour
 	[SyncVar]
 	public bool isGameStarted;
 
+
 	public override void OnStartNetwork()
 	{
 		base.OnStartNetwork();
 		Instance = this;
-		SetGameStartBoolServerRpc(false);
-		maps.Add(new ShooterMap(0, "Jim's Dirty Butthole", 8, "A 1:1 recreation of the place nobody wants to visit", new Color(139f / 255f, 69f / 255f, 19f / 255f)));
-		maps.Add(new ShooterMap(1, "Cherry's Hairy Bush", 8, "Basically Chewbacca wtf", Color.red));
-		maps.Add(new ShooterMap(2, "Lunar's Smelly Armpits", 8, "I can smell them across the globe good god", Color.cyan));
-		maps.Add(new ShooterMap(3, "Ego's Suculent Muscles", 8, "Makes me question my heterosexuality", Color.blue));
+
+		if (IsServer)
+		{
+			SetGameStartBoolServerRpc(false);
+			maps.Add(new ShooterMap(0, "Jim's Dirty Butthole", 8, "A 1:1 recreation of the place nobody wants to visit", new Color(139f / 255f, 69f / 255f, 19f / 255f)));
+			maps.Add(new ShooterMap(1, "Cherry's Hairy Bush", 8, "Basically Chewbacca wtf", Color.red));
+			maps.Add(new ShooterMap(2, "Lunar's Smelly Armpits", 8, "I can smell them across the globe good god", Color.cyan));
+			maps.Add(new ShooterMap(3, "Ego's Suculent Muscles", 8, "Makes me question my heterosexuality", Color.blue));
+		}
+		
 	}
 
 	[Server]
