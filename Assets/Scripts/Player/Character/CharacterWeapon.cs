@@ -1,5 +1,7 @@
+using FishNet.Component.Animating;
 using FishNet.Connection;
 using FishNet.Object;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,6 +79,7 @@ public class CharacterWeapon : NetworkBehaviour
 	[ServerRpc]
 	private void ReloadServerRpc()
 	{
+		if (shootCooldown > 0.0f) return; //can't reload if on shoot cooldown
 		character.Reload();
 	}
 
@@ -88,6 +91,7 @@ public class CharacterWeapon : NetworkBehaviour
 			return;
 		}
 
+		PlayShootAnimation();
 		PlayShootSoundClientRpc();
 		character.SpendAmmo();
 		if(Physics.Raycast(firePointPos, firePointDirection, out RaycastHit hit))
@@ -103,15 +107,30 @@ public class CharacterWeapon : NetworkBehaviour
 	}
 
 	[ObserversRpc(IncludeOwner = true)]
+	private void PlayShootAnimation()
+	{
+		StartCoroutine(ShootAnimation());
+	}
+
+	[ObserversRpc(IncludeOwner = true)]
 	public void PlayShootSoundClientRpc()
 	{
 		shootingSource.PlayOneShot(shootingSound);
 	}
 
+	public IEnumerator ShootAnimation()
+	{
+		GetComponent<NetworkAnimator>().Animator.SetBool("IsShooting", true);
+		yield return new WaitForSeconds(0.93f);
+		GetComponent<NetworkAnimator>().Animator.SetBool("IsShooting", false);
+	}
+
 	public IEnumerator WaitForReload()
 	{
+		GetComponent<NetworkAnimator>().Animator.SetBool("IsReloading", true);
 		isReloading = true;
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.97f);
+		GetComponent<NetworkAnimator>().Animator.SetBool("IsReloading", false);
 		isReloading = false;
 		ReloadServerRpc();
 	}

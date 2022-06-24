@@ -11,6 +11,16 @@ public class ShooterView : View
 	[SerializeField]
 	private TextMeshProUGUI ammoText;
 
+	private void OnEnable()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	private void OnDisable()
+	{
+		Cursor.lockState = CursorLockMode.None;
+	}
+
 	private void Update()
 	{
 		if (!IsInitialized) return;
