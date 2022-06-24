@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +16,19 @@ public class ViewManager : MonoBehaviour
 	[SerializeField]
 	private View defaultView;
 
+	[SerializeField]
+	private List<ViewMap> otherViews = new();
+
+	private Dictionary<string, GameObject> specificViews = new();
+
 	private void Awake()
 	{
 		Instance = this;
+
+		foreach (var view in otherViews)
+		{
+			specificViews[view.viewName] = view.view;
+		}
 	}
 
 	private void Start()
@@ -63,5 +74,30 @@ public class ViewManager : MonoBehaviour
 		}
 
 		return null;
+	}
+
+	public GameObject GetSpecificView(string viewName)
+	{
+		var view = specificViews[viewName];
+		if(view == null)
+		{
+			Debug.LogError("Tried retrieving a view with name " + viewName + ", but was not found");
+			return null;
+		}
+
+		return view;
+	}
+
+	[Serializable]
+	public struct ViewMap
+	{
+		public string viewName;
+		public GameObject view;
+
+		public ViewMap(string viewName, GameObject view)
+		{
+			this.viewName = viewName;
+			this.view = view;
+		}
 	}
 }

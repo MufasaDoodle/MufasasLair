@@ -1,3 +1,5 @@
+using FishNet;
+using FishNet.Component.Spawning;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -79,7 +81,8 @@ public class Player : NetworkBehaviour
 	[ServerRpc(RequireOwnership = false)]
 	public void SpawnCharacterServerRpc()
 	{
-		CharacterSpawn(new Vector3(30, 1.2f, 55));
+		Transform[] spawns = InstanceFinder.NetworkManager.GetComponent<PlayerSpawner>().Spawns;
+		CharacterSpawn(spawns[Random.Range(1, spawns.Length)].position);
 	}
 
 	public void CharacterSpawn(Vector3 spawnPos)

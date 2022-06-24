@@ -43,4 +43,9 @@ public class CharacterCameraLook : NetworkBehaviour
 
 		transform.Rotate(0.0f, input.mouseX, 0.0f, Space.World);
 	}
+
+	public Transform GetCamera()
+	{
+		return myCamera;
+	}
 }
