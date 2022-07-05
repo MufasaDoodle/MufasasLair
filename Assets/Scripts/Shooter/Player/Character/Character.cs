@@ -15,12 +15,14 @@ public class Character : NetworkBehaviour
 	[SyncVar]
 	public int ammo;
 
-	public void ReceiveDamage(float amount)
+	public void ReceiveDamage(float amount, Player damagedBy)
 	{
 		if (!IsSpawned) return;
 
 		if((health -= amount) <= 0.0f)
 		{
+			ScoreboardManager.Instance.PlayerKilled(controllingPlayer, damagedBy);
+
 			controllingPlayer.TargetCharacterKilled(Owner);
 
 			Despawn();

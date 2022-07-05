@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RaceUI : MonoBehaviour
+{
+    public GameObject[] contestants;
+
+    public void UpdateContestantPositions(ContestantPositionData posData)
+	{
+		for (int i = 0; i < contestants.Length; i++)
+		{
+			Vector3 currPos = contestants[i].transform.position;
+			Vector3 newPos = new Vector3(posData.contestantXPos[i], currPos.y, currPos.z);
+			contestants[i].transform.position = newPos;
+		}
+	}
+}

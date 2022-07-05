@@ -17,7 +17,7 @@ public class ShooterMainMenu : View
 
 	public override void Initialize()
 	{
-        playButton.onClick.AddListener(() => ViewManager.Instance.Show<MultiplayerView>());
+        playButton.onClick.AddListener(() => ViewManager.Instance.Show<LobbyView>());
 
         optionsButton.onClick.AddListener(() => ViewManager.Instance.Show<ShooterOptionsView>());
 

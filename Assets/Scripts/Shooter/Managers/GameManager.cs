@@ -41,7 +41,7 @@ public class GameManager : NetworkBehaviour
 			maps.Add(new ShooterMap(0, "Jim's Dirty Butthole", 8, "A 1:1 recreation of the place nobody wants to visit", new Color(139f / 255f, 69f / 255f, 19f / 255f)));
 			maps.Add(new ShooterMap(1, "Cherry's Hairy Bush", 8, "Basically Chewbacca wtf", Color.red));
 			maps.Add(new ShooterMap(2, "Lunar's Smelly Armpits", 8, "I can smell them across the globe good god", Color.cyan));
-			maps.Add(new ShooterMap(3, "Ego's Suculent Muscles", 8, "Makes me question my heterosexuality", Color.blue));
+			maps.Add(new ShooterMap(3, "Ego's Succulent Muscles", 8, "Makes me question my heterosexuality", Color.blue));
 		}
 		
 	}
@@ -76,9 +76,10 @@ public class GameManager : NetworkBehaviour
 			return;
 		}
 
-		NetworkManager.SceneManager.LoadGlobalScenes(sld);
 		SetGameStartBoolServerRpc(true);
-		NetworkManager.SceneManager.UnloadGlobalScenes(new SceneUnloadData("ShooterLobby"));
+		sld.ReplaceScenes = ReplaceOption.All;
+		NetworkManager.SceneManager.LoadGlobalScenes(sld);
+		//NetworkManager.SceneManager.UnloadGlobalScenes(new SceneUnloadData("ShooterLobby"));
 
 		Vector3 spawnPosInitial = new Vector3(30, 1.2f, 55);
 

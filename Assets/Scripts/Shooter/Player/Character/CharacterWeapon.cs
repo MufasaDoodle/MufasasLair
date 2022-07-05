@@ -102,7 +102,7 @@ public class CharacterWeapon : NetworkBehaviour
 
 			StartCoroutine(HitMarker(Owner));
 
-			charHit.ReceiveDamage(damage);
+			charHit.ReceiveDamage(damage, GetComponent<Character>().controllingPlayer);
 		}
 	}
 
