@@ -981,6 +981,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6815794610161626720, guid: 7a240790448c2084d83607e92ede6208, type: 3}
+      propertyPath: _playerPrefab
+      value: 
+      objectReference: {fileID: 9205684403440858228, guid: d60aceaa527b24f438af020b1ab8c49a, type: 3}
     - target: {fileID: 6815794610161626732, guid: 7a240790448c2084d83607e92ede6208, type: 3}
       propertyPath: m_Name
       value: NetworkManager
@@ -1031,11 +1035,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6815794610161626735, guid: 7a240790448c2084d83607e92ede6208, type: 3}
       propertyPath: _onlineScene
-      value: Assets/Scenes/ShooterGame/ShooterLobby.unity
+      value: Assets/Scenes/Racing/Racing.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6815794610161626735, guid: 7a240790448c2084d83607e92ede6208, type: 3}
       propertyPath: _offlineScene
-      value: Assets/Scenes/ShooterGame/ShooterMenu.unity
+      value: Assets/Scenes/Racing/RacingMenu.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6815794610161626735, guid: 7a240790448c2084d83607e92ede6208, type: 3}
       propertyPath: _replaceScenes

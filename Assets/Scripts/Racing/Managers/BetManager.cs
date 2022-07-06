@@ -28,20 +28,21 @@ public class BetManager : NetworkBehaviour
 			return;
 		}
 		betList.Add(bet);
-		UpdateBettingUIClientRpc(); //update all player clients with updated betlist
+		UpdateBettingUIClientRpc(betList.ToList()); //update all player clients with updated betlist
 		Debug.Log($"Player {bet.playerID} has placed a bet on {bet.contestantID} worth {bet.betAmount} sips");
 	}
 
-	[ObserversRpc(BufferLast = true)]
-	public void UpdateBettingUIClientRpc()
+	[ObserversRpc(BufferLast = true, IncludeOwner = true)]
+	public void UpdateBettingUIClientRpc(List<Bet> bets)
 	{
 		string returnString = "";
+		Debug.Log("Number of bets: " + bets.Count);
 
-		foreach (var bet in betList)
+		foreach (var bet in bets)
 		{
 			string playerName = RacingGameManager.Instance.PlayerIDToName(bet.playerID);
 			string contestantName = RacingGameManager.Instance.contestants[bet.contestantID].contestantName;
-			returnString += $"{playerName} has bet {bet.betAmount} on {contestantName}";
+			returnString += $"{playerName} has bet {bet.betAmount} on {contestantName}\n";
 		}
 
 		RacingUIManager.Instance.bettingUI.SetPlacedBetsText(returnString);

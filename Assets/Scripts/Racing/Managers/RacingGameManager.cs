@@ -33,12 +33,11 @@ public class RacingGameManager : NetworkBehaviour
 			contestants.Add(new Contestant(3, "Stroller", "StrollerImage"));
 			contestants.Add(new Contestant(4, "Truck", "TruckImage"));
 			contestants.Add(new Contestant(5, "Dino", "DinoImage"));
+			RacingUIManager.Instance.bettingUI.ActivateHostControls(); 
+			//maybe revise this to allow for remote hosting
 		}
 
-		if (IsHost)
-		{
-			RacingUIManager.Instance.bettingUI.ActivateHostControls();
-		}
+		StartBetting();
 	}
 
 	[Server]
@@ -46,6 +45,13 @@ public class RacingGameManager : NetworkBehaviour
 	{
 		Debug.Log("Game started...");
 		SetGameStartBoolServerRpc(true);
+
+		foreach (var player in players)
+		{
+			player.RoundStart();
+		}
+
+		StartCoroutine(DEBUGWAITFORGAMEEND());
 	}
 
 	[Server]
@@ -54,8 +60,15 @@ public class RacingGameManager : NetworkBehaviour
 		Debug.Log("Game ended...");
 		SetGameStartBoolServerRpc(false);
 		//TODO there is more to do here
+		//reset contestant positions
 		List<Contestant> contestantPlacements = RaceManager.Instance.GetContestantPlacements();
 		var bettingResults = BetManager.Instance.GetBetResults(contestantPlacements);
+		SendBettingResultsClientRpc(bettingResults);
+
+		foreach (var player in players)
+		{
+			player.RoundStop();
+		}
 	}
 
 	[ServerRpc(RequireOwnership = false)]
@@ -88,11 +101,11 @@ public class RacingGameManager : NetworkBehaviour
 
 			if (betResult.hasWon)
 			{
-				returnString += $"{PlayerIDToName(betResult.originalBet.playerID)} can give out <color=green>{betResult.drinkAmount}</color> sips!";
+				returnString += $"{PlayerIDToName(betResult.originalBet.playerID)} can give out <color=green>{betResult.drinkAmount}</color> sips!\n";
 			}
 			else
 			{
-				returnString += $"{PlayerIDToName(betResult.originalBet.playerID)} must drink <color=red>{betResult.drinkAmount}</color> sips!";
+				returnString += $"{PlayerIDToName(betResult.originalBet.playerID)} must drink <color=red>{betResult.drinkAmount}</color> sips!\n";
 			}
 		}
 
@@ -110,6 +123,18 @@ public class RacingGameManager : NetworkBehaviour
 			Debug.Log($"Could not find player with ID of {id}");
 			return null;
 		}
+	}
+
+	[ObserversRpc(BufferLast = true)]
+	public void StartBetting()
+	{
+		RacingUIManager.Instance.bettingUI.ActivateBetting();
+	}
+
+	IEnumerator DEBUGWAITFORGAMEEND()
+	{
+		yield return new WaitForSeconds(3f);
+		StopRound();
 	}
 }
 

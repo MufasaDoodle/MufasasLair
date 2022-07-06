@@ -25,6 +25,7 @@ public class RacingPlayer : NetworkBehaviour
 	{
 		base.OnStartServer();
 
+		//StartCoroutine(WaitForNetworkStart());
 		RacingGameManager.Instance.AddPlayer(this);
 	}
 
@@ -49,5 +50,11 @@ public class RacingPlayer : NetworkBehaviour
 	public void RoundStop()
 	{
 		RacingUIManager.Instance.bettingUI.ActivateBetting();
+	}
+
+	IEnumerator WaitForNetworkStart()
+	{
+		yield return new WaitForSeconds(0.1f);
+		RacingGameManager.Instance.AddPlayer(this);
 	}
 }

@@ -17,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShooterGame/Maps/JimMap.unity
     guid: ce2b9e6e56fbf264c8b52d7916442174
+  - enabled: 1
+    path: Assets/Scenes/Racing/RacingMenu.unity
+    guid: f3d8dc688438db4448f3a8ab96d01b7b
+  - enabled: 1
+    path: Assets/Scenes/Racing/Racing.unity
+    guid: cb09f2fe8cf40e84fa52285142e39ff0
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 2ac9af75987f331428d10b9e6c2d103b, type: 2}

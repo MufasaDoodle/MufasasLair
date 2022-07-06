@@ -48,6 +48,7 @@ public class BettingUI : MonoBehaviour
 
 	public void SetPlacedBetsText(string text)
 	{
+		Debug.Log("Recieved placed bets update:\n" + text);
 		placedBetsText.text = text;
 	}
 
@@ -59,9 +60,9 @@ public class BettingUI : MonoBehaviour
 		}
 
 		int contestantIndex = contestantDropdown.value;
-		if (contestantIndex >= 0)
+		if (contestantIndex < 0)
 		{
-			Debug.LogError("Invalid contestant index");
+			Debug.LogError("Invalid contestant index: " + contestantDropdown);
 			return;
 		}
 
@@ -80,6 +81,8 @@ public class BettingUI : MonoBehaviour
 		}
 
 		BetManager.Instance.PlaceBetServerRpc(new Bet(RacingPlayer.Instance.OwnerId, contestantIndex, betAmount));
+
+		DeactivateBetting();
 	}
 
 	public void StartGame()
