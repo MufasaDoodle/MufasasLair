@@ -2591,6 +2591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a735152c3d5482941ab7cd82fd8cbd17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  betResultsText: {fileID: 1517475309}
 --- !u!1 &1205588990
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,6 +4209,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7b6a099e0c4b94595ddc5f32763c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contestantDropdown: {fileID: 621045588}
+  betAmountField: {fileID: 621456675}
+  autobetToggle: {fileID: 400753316}
+  placeBetButton: {fileID: 100831314}
+  startGameButton: {fileID: 79441226}
+  placedBetsText: {fileID: 1275078023}
 --- !u!1 &2006432570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,6 +4381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00fd12320478a2449bddbfae8eb85dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raceStatusText: {fileID: 1603579537}
 --- !u!1 &2100838818
 GameObject:
   m_ObjectHideFlags: 0

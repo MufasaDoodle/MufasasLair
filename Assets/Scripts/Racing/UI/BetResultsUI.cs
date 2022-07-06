@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BetResultsUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TMPro.TextMeshProUGUI betResultsText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Start()
+	{
+		betResultsText.text = string.Empty;
+	}
+
+	public void SetBettingResultsText(string text)
+	{
+		betResultsText.text = text;
+	}
 }

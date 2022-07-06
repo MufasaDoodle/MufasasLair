@@ -8,6 +8,12 @@ public class RaceUI : MonoBehaviour
 
     public void UpdateContestantPositions(ContestantPositionData posData)
 	{
+		if(posData.contestantXPos.Length != contestants.Length)
+		{
+			Debug.LogError("Contestant-list lengths do not match");
+			return;
+		}
+
 		for (int i = 0; i < contestants.Length; i++)
 		{
 			Vector3 currPos = contestants[i].transform.position;

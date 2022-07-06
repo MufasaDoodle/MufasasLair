@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class RaceStatusUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public TMPro.TextMeshProUGUI raceStatusText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Start()
+	{
+		raceStatusText.text = string.Empty;
+	}
+
+	public void SetRaceStatusText(string text)
+	{
+		raceStatusText.text = text;
+	}
 }
