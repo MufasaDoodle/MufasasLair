@@ -10,11 +10,16 @@ public class SelectGameView : View
 	private Button shooterButton;
 
 	[SerializeField]
+	private Button racingButton;
+
+	[SerializeField]
 	private Button backButton;
 
 	public override void Initialize()
 	{
 		shooterButton.onClick.AddListener(() => SceneManager.LoadScene("ShooterMenu"));
+
+		racingButton.onClick.AddListener(() => SceneManager.LoadScene("RacingMenu"));
 
 		backButton.onClick.AddListener(() => ViewManager.Instance.Show<MainMenu>());
 

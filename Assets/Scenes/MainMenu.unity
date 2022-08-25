@@ -459,7 +459,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 163848529}
   m_OnClick:
     m_PersistentCalls:
@@ -2808,6 +2808,7 @@ MonoBehaviour:
   - {fileID: 1094497803}
   - {fileID: 1764995866}
   defaultView: {fileID: 1883709560}
+  otherViews: []
 --- !u!4 &1711457490
 Transform:
   m_ObjectHideFlags: 0
@@ -2877,6 +2878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shooterButton: {fileID: 1387430061}
+  racingButton: {fileID: 163848528}
   backButton: {fileID: 157809654}
 --- !u!1 &1819665317
 GameObject:

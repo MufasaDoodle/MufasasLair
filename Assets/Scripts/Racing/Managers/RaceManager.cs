@@ -23,7 +23,7 @@ public class RaceManager : NetworkBehaviour
 	[Server]
 	public void StartGame()
 	{
-		finishLineXPos = 850;
+		finishLineXPos = 1750;
 
 		StartCoroutine(RunGame());
 	}
@@ -49,7 +49,7 @@ public class RaceManager : NetworkBehaviour
 
 		for (int i = 0; i < posData.contestantXPos.Length; i++)
 		{
-			float positionIncrease = Random.Range(0, 4);
+			float positionIncrease = Random.Range(0, 8);
 			newContestantPosData[i] = posData.contestantXPos[i] + positionIncrease;
 		}
 
