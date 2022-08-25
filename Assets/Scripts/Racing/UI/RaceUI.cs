@@ -6,6 +6,20 @@ public class RaceUI : MonoBehaviour
 {
     public GameObject[] contestants;
 
+
+	public ContestantPositionData GetContestantPositionData()
+	{
+		float[] contestantsXPos = new float[contestants.Length];
+
+		for (int i = 0; i < contestants.Length; i++)
+		{
+			Vector3 currPos = contestants[i].transform.position;
+			contestantsXPos[i] = currPos.x;
+		}
+
+		return new ContestantPositionData(contestantsXPos);
+	}
+
     public void UpdateContestantPositions(ContestantPositionData posData)
 	{
 		if(posData.contestantXPos.Length != contestants.Length)

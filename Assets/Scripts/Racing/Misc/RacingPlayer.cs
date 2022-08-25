@@ -45,11 +45,13 @@ public class RacingPlayer : NetworkBehaviour
 	public void RoundStart()
 	{
 		RacingUIManager.Instance.bettingUI.DeactivateBetting();
+		if(IsServer) RacingUIManager.Instance.bettingUI.DeactivateHostControls();
 	}
 
 	public void RoundStop()
 	{
 		RacingUIManager.Instance.bettingUI.ActivateBetting();
+		if (IsServer) RacingUIManager.Instance.bettingUI.ActivateHostControls();
 	}
 
 	IEnumerator WaitForNetworkStart()

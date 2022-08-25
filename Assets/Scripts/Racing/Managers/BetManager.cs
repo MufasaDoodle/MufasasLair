@@ -81,6 +81,7 @@ public class BetManager : NetworkBehaviour
 			results.Add(new BetResult(bet, wonBet, drinkAmount));
 		}
 
+		betList.Clear();
 		return results;
 	}
 }

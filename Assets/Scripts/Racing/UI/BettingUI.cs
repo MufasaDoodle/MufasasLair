@@ -13,12 +13,15 @@ public class BettingUI : MonoBehaviour
 	public Button startGameButton;
 	public TextMeshProUGUI placedBetsText;
 
+	Bet prevBet;
+
 	private void Start()
 	{
 		placedBetsText.text = string.Empty;
 
 		placeBetButton.interactable = false;
 		startGameButton.interactable = false;
+		autobetToggle.isOn = false;
 
 		placeBetButton.onClick.AddListener(() =>
 		{
@@ -36,8 +39,19 @@ public class BettingUI : MonoBehaviour
 		startGameButton.interactable = true;
 	}
 
+	public void DeactivateHostControls()
+	{
+		startGameButton.interactable = false;
+	}
+
 	public void ActivateBetting()
 	{
+		if (autobetToggle.isOn)
+		{
+			AutoPlaceBet();
+			return;
+		}
+
 		placeBetButton.interactable = true;
 	}
 
@@ -73,15 +87,18 @@ public class BettingUI : MonoBehaviour
 			return;
 		}
 
-		if (autobetToggle.isOn)
-		{
-			//TODO make an rpc call on betManager
-			//basically we want to save a list of the players who have autobets on, and just automatically place the same bet for them
-			//if they ever turn it off, then we activate their betting again
-		}
+		Bet bet = new Bet(RacingPlayer.Instance.OwnerId, contestantIndex, betAmount);
 
-		BetManager.Instance.PlaceBetServerRpc(new Bet(RacingPlayer.Instance.OwnerId, contestantIndex, betAmount));
+		prevBet = bet;
 
+		BetManager.Instance.PlaceBetServerRpc(bet);
+
+		DeactivateBetting();
+	}
+
+	private void AutoPlaceBet()
+	{
+		BetManager.Instance.PlaceBetServerRpc(prevBet);
 		DeactivateBetting();
 	}
 

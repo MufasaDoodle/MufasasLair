@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RacingGameManager : NetworkBehaviour
 {
@@ -27,15 +28,17 @@ public class RacingGameManager : NetworkBehaviour
 		if (IsServer)
 		{
 			SetGameStartBoolServerRpc(false);
-			contestants.Add(new Contestant(0, "Car", "CarImage"));
-			contestants.Add(new Contestant(1, "Morgan", "MorganImage"));
-			contestants.Add(new Contestant(2, "Old Guy", "OldGuyImage"));
-			contestants.Add(new Contestant(3, "Stroller", "StrollerImage"));
-			contestants.Add(new Contestant(4, "Truck", "TruckImage"));
-			contestants.Add(new Contestant(5, "Dino", "DinoImage"));
+			contestants.Add(new Contestant(0, "Car", "Racing/Contestants/car"));
+			contestants.Add(new Contestant(1, "Morgan", "Racing/Contestants/morgan"));
+			contestants.Add(new Contestant(2, "Old Guy", "Racing/Contestants/oldman"));
+			contestants.Add(new Contestant(3, "Stroller", "Racing/Contestants/stroller"));
+			contestants.Add(new Contestant(4, "Truck", "Racing/Contestants/truck3"));
+			contestants.Add(new Contestant(5, "Dino", "Racing/Contestants/dino"));
 			RacingUIManager.Instance.bettingUI.ActivateHostControls(); 
 			//maybe revise this to allow for remote hosting
 		}
+
+		LoadContestantImages();
 
 		StartBetting();
 	}
@@ -46,12 +49,11 @@ public class RacingGameManager : NetworkBehaviour
 		Debug.Log("Game started...");
 		SetGameStartBoolServerRpc(true);
 
-		foreach (var player in players)
-		{
-			player.RoundStart();
-		}
+		StartRoundClientRpc();
 
-		StartCoroutine(DEBUGWAITFORGAMEEND());
+		RacingUIManager.Instance.raceUI.UpdateContestantPositions(new ContestantPositionData(new float[6])); //reset position
+		RaceManager.Instance.StartGame();
+		//StartCoroutine(DEBUGWAITFORGAMEEND());
 	}
 
 	[Server]
@@ -65,10 +67,7 @@ public class RacingGameManager : NetworkBehaviour
 		var bettingResults = BetManager.Instance.GetBetResults(contestantPlacements);
 		SendBettingResultsClientRpc(bettingResults);
 
-		foreach (var player in players)
-		{
-			player.RoundStop();
-		}
+		StopRoundClientRpc();
 	}
 
 	[ServerRpc(RequireOwnership = false)]
@@ -87,6 +86,18 @@ public class RacingGameManager : NetworkBehaviour
 	private void SetGameStartBoolServerRpc(bool value)
 	{
 		hasRoundStarted = value;
+	}
+
+	[ObserversRpc(BufferLast = true)]
+	public void StartRoundClientRpc()
+	{
+		RacingPlayer.Instance.RoundStart();
+	}
+
+	[ObserversRpc(BufferLast = true)]
+	public void StopRoundClientRpc()
+	{
+		RacingPlayer.Instance.RoundStop();
 	}
 
 	[ObserversRpc(BufferLast = true)]
@@ -129,6 +140,16 @@ public class RacingGameManager : NetworkBehaviour
 	public void StartBetting()
 	{
 		RacingUIManager.Instance.bettingUI.ActivateBetting();
+	}
+
+	private void LoadContestantImages()
+	{
+		var ui = RacingUIManager.Instance.raceUI;
+
+		for (int i = 0; i < contestants.Count; i++)
+		{
+			ui.contestants[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(contestants[i].imagePath);
+		}
 	}
 
 	IEnumerator DEBUGWAITFORGAMEEND()
