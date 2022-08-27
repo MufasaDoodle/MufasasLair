@@ -25,7 +25,7 @@ public class LobbyView : View
 	private TMP_InputField ipText;
 
 	[SerializeField]
-	private TMP_InputField portText;
+	private TMP_InputField portText;	
 
 	public override void Initialize()
 	{

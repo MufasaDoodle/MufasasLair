@@ -34,16 +34,19 @@ public class RacingGameManager : NetworkBehaviour
 			contestants.Add(new Contestant(3, "Stroller", "Racing/Contestants/stroller"));
 			contestants.Add(new Contestant(4, "Truck", "Racing/Contestants/truck3"));
 			contestants.Add(new Contestant(5, "Dino", "Racing/Contestants/dino"));
-			RacingUIManager.Instance.bettingUI.ActivateHostControls(); 
+			RacingUIManager.Instance.bettingUI.ActivateHostControls();
 			//maybe revise this to allow for remote hosting
+			StartBetting();
+		}
+		else
+		{
+			StartCoroutine(CheckIfHost());
 		}
 
 		LoadContestantImages();
-
-		StartBetting();
 	}
 
-	[Server]
+	[ServerRpc(RequireOwnership = false)]
 	public void StartRound()
 	{
 		Debug.Log("Game started...");
@@ -82,7 +85,7 @@ public class RacingGameManager : NetworkBehaviour
 		players.Remove(player);
 	}
 
-	[ServerRpc(RequireOwnership = false)]
+	[Server]
 	private void SetGameStartBoolServerRpc(bool value)
 	{
 		hasRoundStarted = value;
@@ -152,10 +155,17 @@ public class RacingGameManager : NetworkBehaviour
 		}
 	}
 
-	IEnumerator DEBUGWAITFORGAMEEND()
+	IEnumerator CheckIfHost()
 	{
-		yield return new WaitForSeconds(3f);
-		StopRound();
+		Debug.Log("Waiting to check for host status");
+		yield return new WaitForSeconds(0.3f);
+		Debug.Log("Checking for host...");
+
+		if (RacingPlayer.Instance.PlayerName.Contains("Host"))
+		{
+			Debug.Log("We are host!");
+			RacingUIManager.Instance.bettingUI.ActivateHostControls();
+		}
 	}
 }
 

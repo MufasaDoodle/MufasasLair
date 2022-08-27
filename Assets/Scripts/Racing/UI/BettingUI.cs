@@ -48,6 +48,13 @@ public class BettingUI : MonoBehaviour
 	{
 		if (autobetToggle.isOn)
 		{
+			if(prevBet.contestantID == 0 && prevBet.betAmount == 0) //fsr the network does not recognize autobet should be off when first joining, so we have this check here
+			{
+				Debug.Log("Making bet button available");
+				placeBetButton.interactable = true;
+				return;
+			}
+
 			AutoPlaceBet();
 			return;
 		}
@@ -91,6 +98,7 @@ public class BettingUI : MonoBehaviour
 
 		prevBet = bet;
 
+		Debug.Log("Placing bet!");
 		BetManager.Instance.PlaceBetServerRpc(bet);
 
 		DeactivateBetting();
@@ -98,6 +106,7 @@ public class BettingUI : MonoBehaviour
 
 	private void AutoPlaceBet()
 	{
+		Debug.Log("Auto placing bet!");
 		BetManager.Instance.PlaceBetServerRpc(prevBet);
 		DeactivateBetting();
 	}

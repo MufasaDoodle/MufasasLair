@@ -53,7 +53,8 @@ public class RaceManager : NetworkBehaviour
 			newContestantPosData[i] = posData.contestantXPos[i] + positionIncrease;
 		}
 
-		UpdateContestantPositionsClientRpc(new ContestantPositionData(newContestantPosData));
+		//UpdateContestantPositionsClientRpc(new ContestantPositionData(newContestantPosData));
+		raceUI.UpdateContestantPositions(new ContestantPositionData(newContestantPosData)); //update the contestant positions
 		UpdateContestantPlacementClientRpc(GetContestantPlacements());
 	}
 

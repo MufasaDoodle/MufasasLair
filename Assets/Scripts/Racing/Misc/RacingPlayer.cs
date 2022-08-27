@@ -18,7 +18,15 @@ public class RacingPlayer : NetworkBehaviour
 		if (!IsOwner) return;
 
 		Instance = this;
-		SetUsernameServerRpc();
+		SetUsernameServerRpc(PlayerPrefs.GetString("username"));
+		RacingGameManager.Instance.AddPlayer(this);
+	}
+
+	public override void OnStopClient()
+	{
+		base.OnStopClient();
+
+		RacingGameManager.Instance.RemovePlayer(this);
 	}
 
 	public override void OnStartServer()
@@ -26,37 +34,32 @@ public class RacingPlayer : NetworkBehaviour
 		base.OnStartServer();
 
 		//StartCoroutine(WaitForNetworkStart());
-		RacingGameManager.Instance.AddPlayer(this);
+		//RacingGameManager.Instance.AddPlayer(this);
 	}
 
 	public override void OnStopServer()
 	{
 		base.OnStopServer();
 
-		RacingGameManager.Instance.RemovePlayer(this);
+		//RacingGameManager.Instance.RemovePlayer(this);
 	}
 
 	[ServerRpc(RequireOwnership = false)]
-	public void SetUsernameServerRpc()
+	public void SetUsernameServerRpc(string username)
 	{
-		PlayerName = PlayerPrefs.GetString("username");
+		Debug.Log("Setting username to " + username);
+		PlayerName = username;
 	}
 
 	public void RoundStart()
 	{
 		RacingUIManager.Instance.bettingUI.DeactivateBetting();
-		if(IsServer) RacingUIManager.Instance.bettingUI.DeactivateHostControls();
+		if(IsServer || RacingPlayer.Instance.PlayerName.Contains("Host")) RacingUIManager.Instance.bettingUI.DeactivateHostControls();
 	}
 
 	public void RoundStop()
 	{
 		RacingUIManager.Instance.bettingUI.ActivateBetting();
-		if (IsServer) RacingUIManager.Instance.bettingUI.ActivateHostControls();
-	}
-
-	IEnumerator WaitForNetworkStart()
-	{
-		yield return new WaitForSeconds(0.1f);
-		RacingGameManager.Instance.AddPlayer(this);
+		if (IsServer || RacingPlayer.Instance.PlayerName.Contains("Host")) RacingUIManager.Instance.bettingUI.ActivateHostControls();
 	}
 }
