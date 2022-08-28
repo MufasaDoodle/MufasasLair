@@ -23,7 +23,7 @@ public class RaceManager : NetworkBehaviour
 	[Server]
 	public void StartGame()
 	{
-		finishLineXPos = 1750;
+		finishLineXPos = raceUI.finishLine.transform.position.x;
 
 		StartCoroutine(RunGame());
 	}
@@ -45,16 +45,18 @@ public class RaceManager : NetworkBehaviour
 	{
 		var posData = raceUI.GetContestantPositionData();
 
-		float[] newContestantPosData = new float[posData.contestantXPos.Length];
+		float[] newContestantXPos = new float[posData.contestantXPos.Length];
+		float[] newContestantYPos = new float[posData.contestantXPos.Length];
 
 		for (int i = 0; i < posData.contestantXPos.Length; i++)
 		{
 			float positionIncrease = Random.Range(0, 8);
-			newContestantPosData[i] = posData.contestantXPos[i] + positionIncrease;
+			newContestantXPos[i] = posData.contestantXPos[i] + positionIncrease;
+			newContestantYPos[i] = posData.contestantYPos[i];
 		}
 
 		//UpdateContestantPositionsClientRpc(new ContestantPositionData(newContestantPosData));
-		raceUI.UpdateContestantPositions(new ContestantPositionData(newContestantPosData)); //update the contestant positions
+		raceUI.UpdateContestantPositions(new ContestantPositionData(newContestantXPos, newContestantYPos)); //update the contestant positions
 		UpdateContestantPlacementClientRpc(GetContestantPlacements());
 	}
 

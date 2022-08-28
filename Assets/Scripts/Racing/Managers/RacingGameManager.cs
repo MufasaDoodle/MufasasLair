@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
@@ -17,8 +18,7 @@ public class RacingGameManager : NetworkBehaviour
 	[SyncObject]
 	public readonly SyncList<Contestant> contestants = new();
 
-	[SyncVar]
-	public bool hasRoundStarted;
+	private bool isRoundStarted = false;
 
 	public override void OnStartNetwork()
 	{
@@ -27,7 +27,6 @@ public class RacingGameManager : NetworkBehaviour
 
 		if (IsServer)
 		{
-			SetGameStartBoolServerRpc(false);
 			contestants.Add(new Contestant(0, "Car", "Racing/Contestants/car"));
 			contestants.Add(new Contestant(1, "Morgan", "Racing/Contestants/morgan"));
 			contestants.Add(new Contestant(2, "Old Guy", "Racing/Contestants/oldman"));
@@ -35,12 +34,13 @@ public class RacingGameManager : NetworkBehaviour
 			contestants.Add(new Contestant(4, "Truck", "Racing/Contestants/truck3"));
 			contestants.Add(new Contestant(5, "Dino", "Racing/Contestants/dino"));
 			RacingUIManager.Instance.bettingUI.ActivateHostControls();
+			isRoundStarted = false;
 			//maybe revise this to allow for remote hosting
 			StartBetting();
 		}
 		else
 		{
-			StartCoroutine(CheckIfHost());
+			//StartCoroutine(CheckIfHost());
 		}
 
 		LoadContestantImages();
@@ -50,45 +50,48 @@ public class RacingGameManager : NetworkBehaviour
 	public void StartRound()
 	{
 		Debug.Log("Game started...");
-		SetGameStartBoolServerRpc(true);
+		isRoundStarted = true;
 
 		StartRoundClientRpc();
 
-		RacingUIManager.Instance.raceUI.UpdateContestantPositions(new ContestantPositionData(new float[6])); //reset position
+		RacingUIManager.Instance.raceUI.UpdateContestantPositions(new ContestantPositionData(new float[6], RacingUIManager.Instance.raceUI.startingYPositions)); //reset position
 		RaceManager.Instance.StartGame();
-		//StartCoroutine(DEBUGWAITFORGAMEEND());
 	}
 
 	[Server]
 	public void StopRound()
 	{
 		Debug.Log("Game ended...");
-		SetGameStartBoolServerRpc(false);
-		//TODO there is more to do here
-		//reset contestant positions
+		isRoundStarted = false;
 		List<Contestant> contestantPlacements = RaceManager.Instance.GetContestantPlacements();
 		var bettingResults = BetManager.Instance.GetBetResults(contestantPlacements);
 		SendBettingResultsClientRpc(bettingResults);
 
+		BetManager.Instance.ResetBets();
 		StopRoundClientRpc();
 	}
 
 	[ServerRpc(RequireOwnership = false)]
-	public void AddPlayer(RacingPlayer player)
+	public void AddPlayerServerRpc(RacingPlayer player)
 	{
 		players.Add(player);
+		CheckIfPlayerIsHost(player);
+		SetContestantPositions(player.Owner, RacingUIManager.Instance.raceUI.GetContestantPositionData());
+
+		if (!isRoundStarted)
+			player.ActivateBetting();
 	}
 
 	[ServerRpc(RequireOwnership = false)]
-	public void RemovePlayer(RacingPlayer player)
+	public void RemovePlayerServerRpc(RacingPlayer player)
 	{
 		players.Remove(player);
-	}
 
-	[Server]
-	private void SetGameStartBoolServerRpc(bool value)
-	{
-		hasRoundStarted = value;
+		if (players.Count == 0)
+		{
+			BetManager.Instance.ResetBets();
+			RacingUIManager.Instance.raceUI.UpdateContestantPositions(new ContestantPositionData(new float[6], RacingUIManager.Instance.raceUI.startingYPositions)); //reset position
+		}
 	}
 
 	[ObserversRpc(BufferLast = true)]
@@ -153,6 +156,29 @@ public class RacingGameManager : NetworkBehaviour
 		{
 			ui.contestants[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(contestants[i].imagePath);
 		}
+	}
+
+	[Server]
+	private void CheckIfPlayerIsHost(RacingPlayer player)
+	{
+		if (player.PlayerName.Contains("Host"))
+		{
+			ActivateHostControlsTargetRpc(player.Owner);
+			//player.ActivateHostControls();
+		}
+	}
+
+	[TargetRpc]
+	private void ActivateHostControlsTargetRpc(NetworkConnection conn)
+	{
+		RacingPlayer.Instance.ActivateHostControls();
+		RacingUIManager.Instance.bettingUI.ActivateHostControls();
+	}
+
+	[TargetRpc]
+	private void SetContestantPositions(NetworkConnection conn, ContestantPositionData posData)
+	{
+		RacingUIManager.Instance.raceUI.UpdateContestantPositions(posData);
 	}
 
 	IEnumerator CheckIfHost()

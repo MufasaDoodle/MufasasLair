@@ -48,10 +48,11 @@ public class BetManager : NetworkBehaviour
 		RacingUIManager.Instance.bettingUI.SetPlacedBetsText(returnString);
 	}
 
-	[ServerRpc]
-	public void ResetBetsServerRpc()
+	[Server]
+	public void ResetBets()
 	{
 		betList.Clear();
+		UpdateBettingUIClientRpc(betList.ToList());
 		Debug.Log("Bets cleared");
 	}
 
@@ -83,6 +84,19 @@ public class BetManager : NetworkBehaviour
 
 		betList.Clear();
 		return results;
+	}
+
+	[ServerRpc(RequireOwnership = false)]
+	public void RemoveBetFromPlayerServerRpc(int playerID)
+	{
+		foreach (var bet in betList)
+		{
+			if(bet.playerID == playerID)
+			{
+				betList.Remove(bet);
+			}
+		}
+		UpdateBettingUIClientRpc(betList.ToList());
 	}
 }
 

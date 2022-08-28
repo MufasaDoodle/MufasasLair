@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 public struct ContestantPositionData
 {
 	public float[] contestantXPos;
+	public float[] contestantYPos;
 
-	public ContestantPositionData(float[] contestantXPos)
+	public ContestantPositionData(float[] contestantXPos, float[] contestantYPos)
 	{
 		this.contestantXPos = contestantXPos;
+		this.contestantYPos = contestantYPos;
 	}
 }

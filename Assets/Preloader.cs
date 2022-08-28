@@ -11,7 +11,7 @@ public class Preloader : MonoBehaviour
 
 		for (int i = 0; i < arguments.Length; i++)
 		{
-			if (arguments[i] == "racingserver")
+			if (arguments[i] == "-racingserver")
 			{
 				InstanceFinder.ServerManager.StartConnection();
 			}

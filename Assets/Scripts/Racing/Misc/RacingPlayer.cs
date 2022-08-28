@@ -17,31 +17,35 @@ public class RacingPlayer : NetworkBehaviour
 
 		if (!IsOwner) return;
 
+		Debug.Log("Starting racing player client.");
+
 		Instance = this;
 		SetUsernameServerRpc(PlayerPrefs.GetString("username"));
-		RacingGameManager.Instance.AddPlayer(this);
+		RacingGameManager.Instance.AddPlayerServerRpc(this);
+	}
+
+	public void Reinit()
+	{
+		//for whatever reason, sometimes the instance does not get set. that is why this method exists
+		Instance = this;
 	}
 
 	public override void OnStopClient()
 	{
 		base.OnStopClient();
 
-		RacingGameManager.Instance.RemovePlayer(this);
+		BetManager.Instance.RemoveBetFromPlayerServerRpc(OwnerId);
+		RacingGameManager.Instance.RemovePlayerServerRpc(this);
 	}
 
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
-
-		//StartCoroutine(WaitForNetworkStart());
-		//RacingGameManager.Instance.AddPlayer(this);
 	}
 
 	public override void OnStopServer()
 	{
 		base.OnStopServer();
-
-		//RacingGameManager.Instance.RemovePlayer(this);
 	}
 
 	[ServerRpc(RequireOwnership = false)]
@@ -51,15 +55,35 @@ public class RacingPlayer : NetworkBehaviour
 		PlayerName = username;
 	}
 
+	public void ActivateHostControls()
+	{
+		RacingUIManager.Instance.bettingUI.ActivateHostControls();
+	}
+
+	public void DeactivateHostControls()
+	{
+		RacingUIManager.Instance.bettingUI.DeactivateHostControls();
+	}
+
+	public void ActivateBetting()
+	{
+		RacingUIManager.Instance.bettingUI.ActivateBetting();
+	}
+
+	public void DeactivateBetting()
+	{
+		RacingUIManager.Instance.bettingUI.DeactivateBetting();
+	}
+
 	public void RoundStart()
 	{
 		RacingUIManager.Instance.bettingUI.DeactivateBetting();
-		if(IsServer || RacingPlayer.Instance.PlayerName.Contains("Host")) RacingUIManager.Instance.bettingUI.DeactivateHostControls();
+		if(IsServer || PlayerName.Contains("Host")) RacingUIManager.Instance.bettingUI.DeactivateHostControls();
 	}
 
 	public void RoundStop()
 	{
 		RacingUIManager.Instance.bettingUI.ActivateBetting();
-		if (IsServer || RacingPlayer.Instance.PlayerName.Contains("Host")) RacingUIManager.Instance.bettingUI.ActivateHostControls();
+		if (IsServer || PlayerName.Contains("Host")) RacingUIManager.Instance.bettingUI.ActivateHostControls();
 	}
 }

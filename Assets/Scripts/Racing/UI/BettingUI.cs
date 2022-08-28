@@ -19,7 +19,7 @@ public class BettingUI : MonoBehaviour
 	{
 		placedBetsText.text = string.Empty;
 
-		placeBetButton.interactable = false;
+		placeBetButton.interactable = true;
 		startGameButton.interactable = false;
 		autobetToggle.isOn = false;
 
@@ -46,11 +46,13 @@ public class BettingUI : MonoBehaviour
 
 	public void ActivateBetting()
 	{
+		Debug.Log("Activating betting");
 		if (autobetToggle.isOn)
 		{
 			if(prevBet.contestantID == 0 && prevBet.betAmount == 0) //fsr the network does not recognize autobet should be off when first joining, so we have this check here
 			{
 				Debug.Log("Making bet button available");
+				autobetToggle.isOn = false;
 				placeBetButton.interactable = true;
 				return;
 			}
@@ -64,6 +66,7 @@ public class BettingUI : MonoBehaviour
 
 	public void DeactivateBetting()
 	{
+		Debug.Log("Deactivating betting");
 		placeBetButton.interactable = false;
 	}
 
@@ -93,6 +96,8 @@ public class BettingUI : MonoBehaviour
 			Debug.LogError("Invalid bet amount");
 			return;
 		}
+
+		Debug.Log("Placing bet");
 
 		Bet bet = new Bet(RacingPlayer.Instance.OwnerId, contestantIndex, betAmount);
 
